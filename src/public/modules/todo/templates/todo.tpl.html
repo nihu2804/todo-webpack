@@ -1,0 +1,38 @@
+<div id="todo">
+  <h1>To do List</h1>
+  <div class="container">
+    <section class="panel" style="display: inline;">
+      <!--<input type="checkbox" id="mark-all" @click="selectAll" :checked="areAllSelected">-->
+      <input v-model="newTask" @keyup.enter="addTask" placeholder="What do you need to do?" autofocus
+             class="text-input" style="width: 400px;background-color: white;">
+      <button @click="addTask" class="btn btn-primary"> Add</button>
+      <button @click="clearList" class="btn btn-primary">Clear</button>
+    </section>
+
+    <section class="panel">
+      <ul class="list-item" style="display: inline;">
+      <span v-for="task in tasks" :class="{done: isChecked(task)}">
+        <div>
+          <input type="checkbox" class="checkbox" @click="check" v-model="task.checked" style="margin: 5px;">
+
+          <input type="text" v-if="task === editingTask" class="text-input" style="background-color: white;"
+                 @keyup.enter="endEditing(task)" @blur="endEditing(task)" v-model="task.text">
+
+          <router-link :to="{ name: 'todo-detail', params:{id:task.key}}" style="cursor: pointer">
+            <label for="checkbox" v-if="task !== editingTask" @dblclick="editTask(task)"
+                   style="margin: 5px; font-size: 16px;">{{ task.text }}</label>
+          </router-link>
+          <div class="pull-right" style="display: inline;">
+          <v-icon small v-if="task != editingTask" @click="editTask(task)" color="orange"
+                  style="margin: 5px;">fa-edit</v-icon>
+          <v-icon small v-if="task === editingTask" @click="endEditing(task)" color="orange" style="margin: 5px;">fa-save</v-icon>
+          <v-icon small @click="removeTask(task)" color="red" style="margin: 5px;">fa-trash-alt</v-icon>
+          </div>
+          <router-view></router-view>
+
+        </div>
+      </span>
+      </ul>
+    </section>
+  </div>
+</div>

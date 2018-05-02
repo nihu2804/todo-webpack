@@ -1,0 +1,15 @@
+$title-font: normal 24px/1.5 'Open Sans', sans-serif;
+$cool-blue: blue;
+$box-shadow-bottom-only: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
+
+h1 {
+  font: $title-font;
+  color: $cool-blue;
+}
+
+div.container {
+  color: blue;
+  background: #ecf0f1;
+  width: 100%;
+  box-shadow: $box-shadow-bottom-only;
+}
